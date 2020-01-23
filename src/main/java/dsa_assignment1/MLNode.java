@@ -50,32 +50,44 @@ public class MLNode<E> implements MLNodeInterface<E>
 
 	public MLNodeInterface<E> remove1()
 	{
+		this.prev1.setNext1(this.next1);
+		this.next1 = this.prev1 = this;
 
-		/* WRITE THIS CODE */
 		return this;
 	}
 
 	public MLNodeInterface<E> remove2()
 	{
-		/* WRITE THIS CODE */
+		this.prev2.setNext2(this.next2);
+		this.next2 = this.prev2 = this;
+
 		return this;
 	}
 
 	public MLNodeInterface<E> addAfter1(MLNodeInterface<E> target)
 	{
-		/* WRITE THIS CODE */
+		this.remove1();
+		this.setNext1(target.getNext1());
+
+		target.setNext1(this);
+
 		return this;
 	}
 
 	public MLNodeInterface<E> addAfter2(MLNodeInterface<E> target)
 	{
-		/* WRITE THIS CODE */
+		this.remove2();
+		this.setNext2(target.getNext2());
+		target.setNext2(this);
+
 		return this;
 	}
 
 	public MLNodeInterface<E> addBefore1(MLNodeInterface<E> target)
 	{
-		/* WRITE THIS CODE */
+		this.remove1();
+		this.setPrev1(target.getPrev1());
+
 		return this;
 	}
 
