@@ -20,55 +20,80 @@ public class OrderedMruList<E extends Comparable<E>> implements OrderedMruListIn
 	
 	public boolean isEmptyOrdered()
 	{
-		/* WRITE THIS CODE */
+		if (head == head.getNext2()) {
+			return true;
+		}
+
 		return false;
 	}
 
 	public boolean isEmptyMru()
 	{
-		/* WRITE THIS CODE */
+		if (head == head.getNext1()){
+			return true;
+		}
+
 		return false;
 	}
 
 	public OrderedMruListInterface<E> touch(MLNodeInterface<E> target)
 	{
-		/* WRITE THIS CODE */
-		return null;
+		target.remove2();
+		target.addAfter2(head);
+
+		return this;
 	}
 	
 	public MLNodeInterface<E> getFirstMru()
 	{
-		/* WRITE THIS CODE */
-		return null;
+		if (this.isEmptyMru()) {
+			return null;
+		}
+
+		return head.getNext2();
 	}
 	
 	public MLNodeInterface<E> getFirstOrdered()
 	{
-		/* WRITE THIS CODE */
-		return null;
+		if (this.isEmptyOrdered()) {
+			return null;
+		}
+
+		return head.getNext1();
 	}
 	
 	public MLNodeInterface<E> getNextOrdered(MLNodeInterface<E> current)
 	{
-		/* WRITE THIS CODE */
-		return null;
+		if (current.getNext1() == head) {
+			return null;
+		}
+
+		return current.getNext1();
 	}
 
 	public MLNodeInterface<E> getNextMru(MLNodeInterface<E> current)
 	{
-		/* WRITE THIS CODE */
-		return null;
+		if (current.getNext2() == head) {
+			return null;
+		}
+
+		return current.getNext2();
 	}
 
 	public OrderedMruListInterface<E> remove(MLNodeInterface<E> target)
 	{
-		/* WRITE THIS CODE */
-		return null;
+		target.remove1();
+		target.remove2();
+
+		return this;
 	}
 	
 	public OrderedMruListInterface<E> add(E element)
 	{
-		/* WRITE THIS CODE */
-		return null;
+		MLNode temp = new MLNode(element);
+
+		head.addAfter2(temp);
+
+		return this;
 	}
 }

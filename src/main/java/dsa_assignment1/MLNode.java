@@ -24,7 +24,6 @@ public class MLNode<E> implements MLNodeInterface<E>
 
 		// Change this return value to return your University Student Id number, e.g. 
 		// return "1234567";
-		logger.log(Level.TRACE, "test2");
 		return "2029844";
 	}
 

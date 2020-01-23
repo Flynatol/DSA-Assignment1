@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
@@ -12,6 +14,8 @@ public class OrderedMruListTest
 {
 	@Rule
 	public Timeout globalTimeout = new Timeout(20, TimeUnit.MILLISECONDS);
+
+	final static Logger logger = Logger.getLogger(MLNode.class);
 
 	@Test
 	public void testInitializeList()
@@ -53,6 +57,7 @@ public class OrderedMruListTest
 		OrderedMruListInterface<String> oml = new OrderedMruList<>();
 		oml.add("E").add("A").add("C").add("B").add("D");
 		MLNodeInterface<String> e1 = oml.getFirstMru() ; // D
+		logger.log(Level.TRACE, oml.getFirstMru());
 		MLNodeInterface<String> e2 = oml.getNextMru(e1); // B
 		MLNodeInterface<String> e3 = oml.getNextMru(e2); // C
 		MLNodeInterface<String> e4 = oml.getNextMru(e3); // A
