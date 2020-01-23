@@ -13,7 +13,7 @@ public class MLNode<E> implements MLNodeInterface<E>
 
 	final static Logger logger = Logger.getLogger(MLNode.class);
 	
-	/**
+	/**#
 	 * For marking purposes
 	 * 
 	 * @return Your student id
@@ -51,7 +51,10 @@ public class MLNode<E> implements MLNodeInterface<E>
 	public MLNodeInterface<E> remove1()
 	{
 		this.prev1.setNext1(this.next1);
-		this.next1 = this.prev1 = this;
+		this.next1.setPrev1(this.prev1);
+
+		this.next1 = this;
+		this.prev1 = this;
 
 		return this;
 	}
@@ -59,7 +62,10 @@ public class MLNode<E> implements MLNodeInterface<E>
 	public MLNodeInterface<E> remove2()
 	{
 		this.prev2.setNext2(this.next2);
-		this.next2 = this.prev2 = this;
+		this.next2.setPrev2(this.prev2);
+
+		this.next2 = this;
+		this.prev2 = this;
 
 		return this;
 	}
@@ -67,8 +73,11 @@ public class MLNode<E> implements MLNodeInterface<E>
 	public MLNodeInterface<E> addAfter1(MLNodeInterface<E> target)
 	{
 		this.remove1();
-		this.setNext1(target.getNext1());
 
+		this.setNext1(target.getNext1());
+		this.setPrev1(target);
+
+		target.getNext1().setPrev1(this);
 		target.setNext1(this);
 
 		return this;
@@ -77,7 +86,11 @@ public class MLNode<E> implements MLNodeInterface<E>
 	public MLNodeInterface<E> addAfter2(MLNodeInterface<E> target)
 	{
 		this.remove2();
+
 		this.setNext2(target.getNext2());
+		this.setPrev2(target);
+
+		target.getNext2().setPrev2(this);
 		target.setNext2(this);
 
 		return this;
@@ -86,14 +99,26 @@ public class MLNode<E> implements MLNodeInterface<E>
 	public MLNodeInterface<E> addBefore1(MLNodeInterface<E> target)
 	{
 		this.remove1();
+
+		this.setNext1(target);
 		this.setPrev1(target.getPrev1());
+
+		target.getPrev1().setNext1(this);
+		target.setPrev1(this);
 
 		return this;
 	}
 
 	public MLNodeInterface<E> addBefore2(MLNodeInterface<E> target)
 	{
-		/* WRITE THIS CODE */
+		this.remove2();
+
+		this.setNext2(target);
+		this.setPrev2(target.getPrev2());
+
+		target.getPrev2().setNext2(this);
+		target.setPrev2(this);
+
 		return this;
 	}
 	
