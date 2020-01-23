@@ -116,15 +116,11 @@ public class MLNodeTest
 		
 		n1.addAfter2(n2);  // 0-2-1
 
-		logger.log(Level.TRACE, "" + n0.getElement() + n0.getNext2().getElement() + n0.getNext2().getNext2().getElement());
-
 		assertEquals("adding After Without Removing 2", n2.getElement(), n0.getNext2().getElement());
 		assertEquals("adding After Without Removing 2", n1.getElement(), n2.getNext2().getElement());
 		assertEquals("adding After Without Removing 2", n0.getElement(), n1.getNext2().getElement());
 
 		n1.addBefore2(n2); // 0-1-2
-
-		logger.log(Level.TRACE, "" + n0.getElement() + n0.getNext2().getElement() + n0.getNext2().getNext2().getElement());
 
 		assertEquals("adding Before Without Removing 2", n1.getElement(), n0.getNext2().getElement());
 		assertEquals("adding Before Without Removing 2", n2.getElement(), n1.getNext2().getElement());
@@ -145,14 +141,8 @@ public class MLNodeTest
 		n1.addAfter2(n0);
 		n2.addAfter2(n1);
 
-		logger.log(Level.TRACE, "" + n0.getPrev2().getElement() + n0.getElement() + n0.getNext2().getElement() + n0.getNext2().getNext2().getElement());
-
 		MLNodeInterface<Integer>x1 = n1.remove1();  //list 1: 0-2, 1
 		MLNodeInterface<Integer>x2 = n2.remove2();  //list 2: 0-1, 2
-
-		logger.log(Level.TRACE, "" + x1.getElement() + x1.getNext1().getElement() + x1.getNext1().getNext1().getElement());
-		logger.log(Level.TRACE, "" + n0.getPrev2().getElement() + n0.getElement() + n0.getNext2().getElement() + n0.getNext2().getNext2().getElement());
-
 
 		assertSame("Remove1 returning argument", n1, x1);
 		assertSame("Remove1 returning argument", n1, x1.getNext1());
@@ -162,23 +152,15 @@ public class MLNodeTest
 		assertSame("Remove2 returning argument", n2, x2.getNext2());
 		assertSame("Remove2 returning argument", n2, x2.getPrev2());
 
-		logger.log(Level.TRACE, "Mark");
-		
 		assertSame("Remove1 remaining list", n2, n0.getNext1());
 		assertSame("Remove1 remaining list", n0, n2.getNext1());
 		assertSame("Remove1 remaining list", n2, n0.getPrev1());
 		assertSame("Remove1 remaining list", n0, n2.getPrev1());
 
-		logger.log(Level.TRACE, "Mark");
-		logger.log(Level.TRACE, "" + n0.getPrev2().getElement() + n0.getElement() + n0.getNext2().getElement() + n0.getNext2().getNext2().getElement());
-
-
 		assertSame("Remove2 remaining list", n1, n0.getNext2());
 		assertSame("Remove2 remaining list", n0, n1.getNext2());
 		assertSame("Remove2 remaining list", n1, n0.getPrev2());
 		assertSame("Remove2 remaining list", n0, n1.getPrev2());
-
-		logger.log(Level.TRACE, "Mark");
 
 		//assertSame("")
 	}
