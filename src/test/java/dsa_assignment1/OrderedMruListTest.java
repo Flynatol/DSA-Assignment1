@@ -57,7 +57,9 @@ public class OrderedMruListTest
 		OrderedMruListInterface<String> oml = new OrderedMruList<>();
 		oml.add("E").add("A").add("C").add("B").add("D");
 		MLNodeInterface<String> e1 = oml.getFirstMru() ; // D
-		logger.log(Level.TRACE, oml.getFirstMru());
+
+		//logger.log(Level.TRACE, "" + e1.getElement());
+
 		MLNodeInterface<String> e2 = oml.getNextMru(e1); // B
 		MLNodeInterface<String> e3 = oml.getNextMru(e2); // C
 		MLNodeInterface<String> e4 = oml.getNextMru(e3); // A

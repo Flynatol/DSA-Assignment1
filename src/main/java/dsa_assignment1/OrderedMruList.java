@@ -1,5 +1,8 @@
 package dsa_assignment1;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 public class OrderedMruList<E extends Comparable<E>> implements OrderedMruListInterface<E>
 {
 	/**
@@ -14,13 +17,16 @@ public class OrderedMruList<E extends Comparable<E>> implements OrderedMruListIn
 	 */
 	MLNodeInterface<E>	head	= new MLNode<E>(null);
 
+	final static Logger logger = Logger.getLogger(MLNode.class);
+
+
 	public OrderedMruList()
 	{
 	}
 	
 	public boolean isEmptyOrdered()
 	{
-		if (head == head.getNext2()) {
+		if (head == head.getNext1()) {
 			return true;
 		}
 
@@ -29,7 +35,7 @@ public class OrderedMruList<E extends Comparable<E>> implements OrderedMruListIn
 
 	public boolean isEmptyMru()
 	{
-		if (head == head.getNext1()){
+		if (head == head.getNext2()){
 			return true;
 		}
 
@@ -47,6 +53,7 @@ public class OrderedMruList<E extends Comparable<E>> implements OrderedMruListIn
 	public MLNodeInterface<E> getFirstMru()
 	{
 		if (this.isEmptyMru()) {
+			logger.log(Level.TRACE, "MRU EMPTY");
 			return null;
 		}
 
@@ -90,9 +97,32 @@ public class OrderedMruList<E extends Comparable<E>> implements OrderedMruListIn
 	
 	public OrderedMruListInterface<E> add(E element)
 	{
-		MLNode temp = new MLNode(element);
+		MLNodeInterface<E> elementNode = new MLNode<E>(element);
 
-		head.addAfter2(temp);
+		elementNode.addAfter2(head);
+
+		//logger.trace("test " + elementNode.getPrev2().getElement().toString());
+
+		if (isEmptyOrdered()){
+			elementNode.addAfter1(head);
+		} else {
+			int comparison;
+			MLNodeInterface<E> currentElement = head.getNext1();
+
+
+			while (currentElement != head){
+				comparison = elementNode.getElement().compareTo(currentElement.getElement());
+
+				if (comparison < 0) {
+					elementNode.addBefore1(currentElement);
+					break;
+				}
+
+				currentElement = currentElement.getNext1();
+			}
+
+
+		}
 
 		return this;
 	}
